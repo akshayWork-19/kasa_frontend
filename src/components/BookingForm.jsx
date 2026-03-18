@@ -80,14 +80,15 @@ const BookingForm = ({ room }) => {
     };
 
     return (
-        <div style={styles.form}>
+        <div className="card-base" style={styles.form}>
             <h3 style={styles.heading}>Book This Room</h3>
 
             <div style={styles.field}>
-                <label style={styles.label}>Check-in Date</label>
+                <label className="label-base" style={styles.label}>Check-in Date</label>
                 <input
                     type="date"
                     min={today}
+                    className="input-field"
                     value={startDate}
                     onChange={(e) => handleDateChange('start', e.target.value)}
                     style={styles.input}
@@ -95,10 +96,11 @@ const BookingForm = ({ room }) => {
             </div>
 
             <div style={styles.field}>
-                <label style={styles.label}>Check-out Date</label>
+                <label className="label-base" style={styles.label}>Check-out Date</label>
                 <input
                     type="date"
                     min={startDate || today}
+                    className="input-field"
                     value={endDate}
                     onChange={(e) => handleDateChange('end', e.target.value)}
                     style={styles.input}
@@ -113,20 +115,20 @@ const BookingForm = ({ room }) => {
             )}
 
             {availability === null ? (
-                <button onClick={checkAvailability} style={styles.checkBtn} disabled={loading}>
+                <button onClick={checkAvailability} className="btn btn-outline" style={styles.checkBtn} disabled={loading}>
                     {loading ? 'Checking...' : 'Check Availability'}
                 </button>
             ) : availability ? (
                 <>
                     <div style={styles.available}>✅ Room is available!</div>
-                    <button onClick={handleBook} style={styles.bookBtn} disabled={loading}>
+                    <button onClick={handleBook} className="btn btn-primary" style={styles.bookBtn} disabled={loading}>
                         {loading ? 'Booking...' : 'Confirm Booking'}
                     </button>
                 </>
             ) : (
                 <>
                     <div style={styles.unavailable}>❌ Room is unavailable for these dates.</div>
-                    <button onClick={() => { setAvailability(null); setStartDate(''); setEndDate(''); }} style={styles.checkBtn}>
+                    <button onClick={() => { setAvailability(null); setStartDate(''); setEndDate(''); }} className="btn btn-outline" style={styles.checkBtn}>
                         Choose Different Dates
                     </button>
                 </>

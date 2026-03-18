@@ -39,7 +39,7 @@ const MyBookings = () => {
 
     return (
         <div style={styles.page}>
-            <div style={styles.container}>
+            <div className="container" style={styles.container}>
                 <h1 style={styles.title}>My Bookings</h1>
 
                 {loading && <Loader message="Loading bookings..." />}
@@ -49,20 +49,23 @@ const MyBookings = () => {
                 )}
 
                 {!loading && !error && bookings.length === 0 && (
-                    <div style={styles.empty}>
+                    <div className="card-base" style={styles.empty}>
                         <p style={{ fontSize: '56px' }}>📋</p>
                         <p style={{ fontWeight: '600', fontSize: '18px', color: '#1e293b' }}>No bookings yet</p>
-                        <p style={{ color: '#64748b' }}>Head to the dashboard to book a room!</p>
+                        <p style={{ color: '#64748b', marginBottom: '24px' }}>Head to the dashboard to book a room!</p>
+                        <button onClick={() => navigate('/dashboard')} className="btn btn-primary">
+                            Explore Rooms
+                        </button>
                     </div>
                 )}
 
                 {!loading && !error && bookings.length > 0 && (
-                    <div style={styles.list}>
+                    <div className="grid-auto" style={styles.list}>
                         {bookings.map((b) => {
                             const status = getStatus(b.start_date, b.end_date);
                             const nights = getNights(b.start_date, b.end_date);
                             return (
-                                <div key={b.id} style={styles.card}>
+                                <div key={b.id} className="card-base" style={styles.card}>
                                     <img
                                         src={b.image_url || 'https://via.placeholder.com/120x90'}
                                         alt={b.room_name}

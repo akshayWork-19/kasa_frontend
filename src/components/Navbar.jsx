@@ -11,14 +11,14 @@ const Navbar = () => {
     }
 
     return (
-        <nav style={styles.nav}>
-            <Link to="/dashboard" style={styles.brand}>🏨 RoomBook</Link>
+        <nav className="navbar" style={styles.nav}>
+            <Link to="/dashboard" className="navbar-brand" style={styles.brand}>🏨 Kasa</Link>
             {isAuthenticated && (
-                <div style={styles.right}>
-                    <Link to="/dashboard" style={styles.link}>Rooms</Link>
-                    <Link to="/my-bookings" style={styles.link}>My Bookings</Link>
-                    <span style={styles.user}>👤 {user?.name}</span>
-                    <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
+                <div className="nav-right" style={styles.right}>
+                    <Link to="/dashboard" className="navbar-link" style={styles.link}>Rooms</Link>
+                    <Link to="/my-bookings" className="navbar-link" style={styles.link}>My Bookings</Link>
+                    <span className="nav-user" style={styles.user}>👤 {user?.name}</span>
+                    <button onClick={handleLogout} className="btn btn-danger" style={styles.logoutBtn}>Logout</button>
                 </div>
             )}
         </nav>

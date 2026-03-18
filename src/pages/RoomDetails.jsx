@@ -37,13 +37,13 @@ const RoomDetails = () => {
     );
 
     return (
-        <div style={styles.page}>
-            <div style={styles.container}>
-                <button onClick={() => navigate('/dashboard')} style={styles.back}>← Back to Rooms</button>
+        <div className="dashboard-page" style={styles.page}>
+            <div className="container" style={styles.container}>
+                <button onClick={() => navigate('/dashboard')} className="btn btn-outline" style={styles.back}>← Back to Rooms</button>
 
-                <div style={styles.layout}>
+                <div className="details-layout" style={styles.layout}>
                     {/* Left: Room Info */}
-                    <div style={styles.left}>
+                    <div className="card-base" style={styles.left}>
                         <img
                             src={room.image_url || 'https://via.placeholder.com/800x450'}
                             alt={room.name}
@@ -52,16 +52,16 @@ const RoomDetails = () => {
                         />
                         <div style={styles.info}>
                             <h1 style={styles.title}>{room.name}</h1>
-                            <div style={styles.meta}>
+                            <div className="flex-between" style={styles.meta}>
                                 <span style={styles.price}>${room.price_per_night}<span style={styles.perNight}> / night</span></span>
-                                <span style={styles.badge}>👥 Up to {room.capacity} guests</span>
+                                <span className="nav-user" style={styles.badge}>👥 Up to {room.capacity} guests</span>
                             </div>
                             <p style={styles.desc}>{room.description}</p>
                         </div>
                     </div>
 
                     {/* Right: Booking Form */}
-                    <div style={styles.right}>
+                    <div className="details-right" style={styles.right}>
                         <BookingForm room={room} />
                     </div>
                 </div>

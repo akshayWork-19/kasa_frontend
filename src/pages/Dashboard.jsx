@@ -25,13 +25,13 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div style={styles.page}>
-            <div style={styles.hero}>
-                <h1 style={styles.heroTitle}>Welcome back, {user?.name}! 👋</h1>
-                <p style={styles.heroSub}>Browse our available rooms and book your perfect stay.</p>
+        <div className="dashboard-page" style={styles.page}>
+            <div className="hero-section" style={styles.hero}>
+                <h1 className="hero-title" style={styles.heroTitle}>Welcome back, {user?.name}! 👋</h1>
+                <p className="hero-sub" style={styles.heroSub}>Browse our available rooms and book your perfect stay.</p>
             </div>
 
-            <div style={styles.container}>
+            <div className="container" style={styles.container}>
                 {loading && <Loader message="Loading rooms..." />}
 
                 {error && !loading && (
@@ -48,7 +48,7 @@ const Dashboard = () => {
                 {!loading && !error && rooms.length > 0 && (
                     <>
                         <h2 style={styles.sectionTitle}>Available Rooms ({rooms.length})</h2>
-                        <div style={styles.grid}>
+                        <div className="grid-auto" style={styles.grid}>
                             {rooms.map((room) => <RoomCard key={room.id} room={room} />)}
                         </div>
                     </>

@@ -4,7 +4,7 @@ const RoomCard = ({ room }) => {
     const navigate = useNavigate();
 
     return (
-        <div style={styles.card}>
+        <div className="card-base" style={styles.card}>
             <img
                 src={room.image_url || 'https://via.placeholder.com/400x220'}
                 alt={room.name}
@@ -21,7 +21,7 @@ const RoomCard = ({ room }) => {
                     </div>
                     <span style={styles.capacity}>👥 Up to {room.capacity} guests</span>
                 </div>
-                <button style={styles.btn} onClick={() => navigate(`/rooms/${room.id}`)}>
+                <button className="btn btn-primary" style={styles.btn} onClick={() => navigate(`/rooms/${room.id}`)}>
                     View & Book
                 </button>
             </div>

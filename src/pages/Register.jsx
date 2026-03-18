@@ -40,30 +40,30 @@ const Register = () => {
 
     return (
         <div style={styles.page}>
-            <div style={styles.card}>
+            <div className="card-base card-auth" style={styles.card}>
                 <h1 style={styles.title}>🏨 Create Account</h1>
                 <p style={styles.subtitle}>Join RoomBook today</p>
 
                 {error && <div style={styles.error}>{error}</div>}
 
                 <div style={styles.field}>
-                    <label style={styles.label}>Full Name</label>
-                    <input name="name" placeholder="John Doe" value={form.name}
+                    <label className="label-base" style={styles.label}>Full Name</label>
+                    <input name="name" className="input-field" placeholder="John Doe" value={form.name}
                         onChange={handleChange} style={styles.input} />
                 </div>
                 <div style={styles.field}>
-                    <label style={styles.label}>Email</label>
-                    <input name="email" type="email" placeholder="john@example.com" value={form.email}
+                    <label className="label-base" style={styles.label}>Email</label>
+                    <input name="email" type="email" className="input-field" placeholder="john@example.com" value={form.email}
                         onChange={handleChange} style={styles.input} />
                 </div>
                 <div style={styles.field}>
-                    <label style={styles.label}>Password</label>
-                    <input name="password" type="password" placeholder="Min 6 characters" value={form.password}
+                    <label className="label-base" style={styles.label}>Password</label>
+                    <input name="password" type="password" className="input-field" placeholder="Min 6 characters" value={form.password}
                         onChange={handleChange} style={styles.input}
                         onKeyDown={(e) => e.key === 'Enter' && handleSubmit()} />
                 </div>
 
-                <button onClick={handleSubmit} style={styles.btn} disabled={loading}>
+                <button onClick={handleSubmit} className="btn btn-primary" style={styles.btn} disabled={loading}>
                     {loading ? 'Creating account...' : 'Register'}
                 </button>
 
