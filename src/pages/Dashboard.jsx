@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react";
-import api from "../api/axios";
 import RoomCard from '../components/RoomCard';
 import Loader from '../components/Loader';
 import { useAuth } from "../context/AuthContext";
+import useFetch from "../hooks/useFetch";
 
 const Dashboard = () => {
-    const [rooms, setRooms] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const { user } = useAuth();
-
-    useEffect(() => {
-        const fetchRooms = async () => {
-            try {
-                const res = await api.get('/rooms');
-                setRooms(res.data.data);
-            } catch (err) {
-                setError('Failed to load rooms. Please try again.');
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchRooms();
-    }, []);
+    const { data: rooms, loading, error } = useFetch('/rooms');
 
     return (
         <div className="dashboard-page" style={styles.page}>

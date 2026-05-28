@@ -1,27 +1,11 @@
-import { useEffect, useState } from "react";
-import api from "../api/axios";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 const MyBookings = () => {
-    const [bookings, setBookings] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                const res = await api.get('/bookings/my');
-                setBookings(res.data.data);
-            } catch (err) {
-                setError('Failed to load your bookings.');
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchBookings();
-    }, []);
+    const navigate = useNavigate();
+    const { data: bookings, loading, error } = useFetch('/bookings/my');
 
     const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-US', {
         weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'

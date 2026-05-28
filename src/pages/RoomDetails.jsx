@@ -1,30 +1,13 @@
-import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../api/axios";
 import BookingForm from '../components/BookingForm';
 import Loader from "../components/Loader";
+import useFetch from "../hooks/useFetch";
 
 
 const RoomDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [room, setRoom] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-
-    useEffect(() => {
-        const fetchRoom = async () => {
-            try {
-                const res = await api.get(`/rooms/${id}`);
-                setRoom(res.data.data);
-            } catch (err) {
-                setError(err.response?.data?.message || 'Room not found.');
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchRoom();
-    }, [id]);
+    const { data: room, loading, error } = useFetch(`/rooms/${id}`);
 
     if (loading) return <div style={{ padding: '80px' }}><Loader /></div>;
 

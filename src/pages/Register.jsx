@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { validate } from "../utils/validate";
+import { handleAuthError } from "../utils/handleAuthError";
+
 
 const Register = () => {
     const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -12,16 +15,9 @@ const Register = () => {
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const validate = () => {
-        if (!form.name.trim()) return 'Name is required.';
-        if (!form.email.trim()) return 'Email is required.';
-        if (!/\S+@\S+\.\S+/.test(form.email)) return 'Enter a valid email.';
-        if (form.password.length < 6) return 'Password must be at least 6 characters.';
-        return null;
-    };
 
-    const handleSubmit = async () => {
-        const validationError = validate();
+    const handleSubmit = async (retries = 1) => {
+        const validationError = validate(form);
         if (validationError) { setError(validationError); return; }
 
         setLoading(true);
@@ -31,8 +27,12 @@ const Register = () => {
             login(res.data.data.token, res.data.data.user);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed.');
-        } finally {
+            if (!err.response && retries > 0) {
+
+                setTimeout(() => handleSubmit(retries - 1), 2000);
+                return;
+            }
+            setError(handleAuthError(err));
             setLoading(false);
         }
     };

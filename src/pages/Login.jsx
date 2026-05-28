@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import { validate } from "../utils/validate";
+import { handleAuthError } from "../utils/handleAuthError";
 
 const Login = () => {
     const [form, setForm] = useState({ email: '', password: '' });
@@ -12,8 +14,9 @@ const Login = () => {
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleSubmit = async () => {
-        if (!form.email || !form.password) { setError('All fields are required.'); return; }
+    const handleSubmit = async (retries = 1) => {
+        const validationError = validate(form, true);
+        if (validationError) { setError(validationError); return; }
         setLoading(true);
         setError('');
         try {
@@ -21,8 +24,11 @@ const Login = () => {
             login(res.data.data.token, res.data.data.user);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Login failed.');
-        } finally {
+            if (!err.response && retries > 0) {
+                setTimeout(() => handleSubmit(retries - 1), 2000);
+                return;
+            }
+            setError(handleAuthError(err));
             setLoading(false);
         }
     };
